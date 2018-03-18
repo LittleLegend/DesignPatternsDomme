@@ -4,47 +4,74 @@ using UnityEngine;
 
 public class WeatherStationController : MonoBehaviour {
 
-    public WeatherData weatherData = new WeatherData(50,50);
+ 
     public float inputDelay;
-   
+    public int minTemp;
+    public int maxTemp;
+    public int minHumid;
+    public int maxHumid;
+    public WeatherData weatherData = new WeatherData(0, 0);
+     
 
-	void Start () {
+    void Start () {
+
+        setWeatherData();
         weatherData.weatherChanged();
         StartCoroutine(handleInput());
     }
 	
 	
+    public void setWeatherData()
+    {
+        weatherData.temperature = minTemp + (maxTemp - minTemp) / 2;
+        weatherData.humidity = minHumid +  (maxHumid - minHumid) / 2;
+        weatherData.maxHumid = maxHumid;
+        weatherData.minHumid = minHumid;
+        weatherData.maxTemp = maxTemp;
+        weatherData.minTemp = minTemp;
+
+
+    }
 
     public IEnumerator handleInput()
     {
-        while(true)
+
+        while (true)
         {
-
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (Input.anyKey)
             {
-                weatherData.temperature += 1;
-                weatherData.weatherChanged();
+                while (Input.anyKey)
+                {
+                    if (Input.GetKey(KeyCode.UpArrow)&& weatherData.temperature < maxTemp)
+                    {
+                        weatherData.temperature += 1;
+                        weatherData.weatherChanged();
+                    }
+
+                    if (Input.GetKey(KeyCode.DownArrow) && weatherData.temperature > minTemp)
+                    {
+                        weatherData.temperature -= 1;
+                        weatherData.weatherChanged();
+                    }
+
+                    if (Input.GetKey(KeyCode.LeftArrow) && weatherData.humidity > minHumid)
+                    {
+                        weatherData.humidity -= 1;
+                        weatherData.weatherChanged();
+                    }
+
+                    if (Input.GetKey(KeyCode.RightArrow) && weatherData.humidity < maxHumid)
+                    {
+                        weatherData.humidity += 1;
+                        weatherData.weatherChanged();
+                    }
+
+                    yield return new WaitForSeconds(inputDelay);
+                }
+
             }
 
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                weatherData.temperature -= 1;
-                weatherData.weatherChanged();
-            }
-
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                weatherData.humidity -= 1;
-                weatherData.weatherChanged();
-            }
-
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                weatherData.humidity += 1;
-                weatherData.weatherChanged();
-            }
-
-            yield return new WaitForSeconds(inputDelay);
+            yield return true;
         }
 
     }
