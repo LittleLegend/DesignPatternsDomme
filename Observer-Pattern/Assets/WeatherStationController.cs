@@ -11,7 +11,9 @@ public class WeatherStationController : MonoBehaviour {
     public int minHumid;
     public int maxHumid;
     public WeatherData weatherData = new WeatherData(0, 0);
-     
+
+    [Range(0, 10)] public float PenisLength;
+     public float Something;
 
     void Start () {
 

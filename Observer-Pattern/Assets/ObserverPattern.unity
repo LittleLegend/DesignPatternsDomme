@@ -1005,6 +1005,8 @@ MonoBehaviour:
   maxTemp: 50
   minHumid: 0
   maxHumid: 100
+  PenisLength: 6.18
+  Something: 0
 --- !u!4 &807907687
 Transform:
   m_ObjectHideFlags: 0
