@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 
 public class Observable
@@ -19,6 +20,7 @@ public class Observable
     {
         foreach(IObserver observer in list)
         {
+            
             observer.update();
 
         }

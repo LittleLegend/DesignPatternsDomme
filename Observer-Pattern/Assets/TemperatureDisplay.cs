@@ -16,6 +16,7 @@ public class TemperatureDisplay : MonoBehaviour,IObserver {
     public TextMeshProUGUI TemperatureTextfield;
 
     public void update() {
+      
         temperature = weatherData.temperature;
         loadingbarTemperatureBehavior.displayLoading(temperature,weatherData.maxTemp, weatherData.minTemp, LoadingbarTemperatrue);
         temperatureTextBehavior.displayText(temperature.ToString() + "C°", TemperatureTextfield);
@@ -25,7 +26,17 @@ public class TemperatureDisplay : MonoBehaviour,IObserver {
     public void Start()
     {
         weatherData = weatherSation.weatherData;
-        weatherData.registerIObserver(this,weatherData.Displays);
+        this.SubcribeWeatherData();
     }
-	
+
+    public void SubcribeWeatherData()
+    {
+        weatherData.registerIObserver(this, weatherData.Displays);
+    }
+
+    public void UnsubcibeWeatherData()
+    {
+        weatherData.removeObserver(this, weatherData.Displays);
+    }
+
 }

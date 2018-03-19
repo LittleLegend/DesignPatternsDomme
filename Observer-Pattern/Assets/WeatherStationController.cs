@@ -16,8 +16,9 @@ public class WeatherStationController : MonoBehaviour {
     void Start () {
 
         setWeatherData();
-        weatherData.weatherChanged();
         StartCoroutine(handleInput());
+        
+
     }
 	
 	
@@ -29,7 +30,7 @@ public class WeatherStationController : MonoBehaviour {
         weatherData.minHumid = minHumid;
         weatherData.maxTemp = maxTemp;
         weatherData.minTemp = minTemp;
-
+       
 
     }
 
@@ -70,7 +71,7 @@ public class WeatherStationController : MonoBehaviour {
                 }
 
             }
-
+            weatherData.weatherChanged();
             yield return true;
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class HumidityDisplay : MonoBehaviour,IObserver {
+public class HumidityDisplay : MonoBehaviour, IObserver {
 
     public WeatherStationController weatherSation;
     public WeatherData weatherData;
@@ -16,8 +16,9 @@ public class HumidityDisplay : MonoBehaviour,IObserver {
 
     public void update()
     {
+        
         humidity = weatherData.humidity;
-        loadingbarHumidityBehavior.displayLoading(humidity,weatherData.maxHumid,weatherData.minHumid, LoadingbarHumidity);
+        loadingbarHumidityBehavior.displayLoading(humidity, weatherData.maxHumid, weatherData.minHumid, LoadingbarHumidity);
         humidityTextBehavior.displayText(humidity.ToString() + "%", HumidityTextfield);
 
     }
@@ -25,8 +26,20 @@ public class HumidityDisplay : MonoBehaviour,IObserver {
 
     public void Start()
     {
+        
         weatherData = weatherSation.weatherData;
+        this.SubcribeWeatherData();
+    }
+
+        public void SubcribeWeatherData()
+    {
+       
         weatherData.registerIObserver(this, weatherData.Displays);
     }
 
+    public void UnsubcibeWeatherData()
+    {
+        weatherData.removeObserver(this, weatherData.Displays);
+    }
 }
+
