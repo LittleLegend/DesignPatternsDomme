@@ -21,7 +21,8 @@ public class Observable
         foreach(IObserver observer in list)
         {
             
-            observer.update();
+            observer.update(weather);
+            
 
         }
     }

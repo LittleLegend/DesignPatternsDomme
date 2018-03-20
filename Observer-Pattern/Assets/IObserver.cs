@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public interface IObserver{
 
-    void update();
+    void update(WeatherData weather);
+
+    void Subscribe(WeatherData weather);
+
+    void Unsubscribe(WeatherData weather);
 
 }

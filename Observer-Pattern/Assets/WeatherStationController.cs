@@ -11,13 +11,17 @@ public class WeatherStationController : MonoBehaviour {
     public int minHumid;
     public int maxHumid;
     public WeatherData weatherData = new WeatherData(0, 0);
+    public HumidityDisplay humidityDisplay;
+    public TemperatureDisplay temperatureDisplay;
 
-    [Range(0, 10)] public float PenisLength;
-     public float Something;
+
 
     void Start () {
 
+        
         setWeatherData();
+        humidityDisplay.Subscribe(weatherData);
+        temperatureDisplay.Subscribe(weatherData);
         StartCoroutine(handleInput());
         
 
@@ -39,10 +43,8 @@ public class WeatherStationController : MonoBehaviour {
     public IEnumerator handleInput()
     {
 
-        while (true)
+        while (weatherData!=null)
         {
-            if (Input.anyKey)
-            {
                 while (Input.anyKey)
                 {
                     if (Input.GetKey(KeyCode.UpArrow)&& weatherData.temperature < maxTemp)
@@ -71,10 +73,9 @@ public class WeatherStationController : MonoBehaviour {
 
                     yield return new WaitForSeconds(inputDelay);
                 }
-
-            }
-            weatherData.weatherChanged();
+                
             yield return true;
+            
         }
 
     }

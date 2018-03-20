@@ -6,4 +6,8 @@ using TMPro;
 interface ITextBehavior{
     
     void displayText(string text, TextMeshProUGUI textbox);
+
+    void activeText(TextMeshProUGUI Text);
+
+    void deactiveText(TextMeshProUGUI Text);
 }
