@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-interface IDisplay {
+public interface IDisplay {
 
-    
+
 
     void display();
-    void Switch();
+     int getValue();
 
 
 }

@@ -13,12 +13,14 @@ public class WeatherStationController : MonoBehaviour {
     public WeatherData weatherData = new WeatherData(0, 0);
     public HumidityDisplay humidityDisplay;
     public TemperatureDisplay temperatureDisplay;
-
+    public IDisplay Display1;
 
 
     void Start () {
+        Display1 = temperatureDisplay;
+        Display1 = new TextDecorator(Display1,temperatureDisplay.TemperatureTextfield);
+        Display1 = new TextDecorator(Display1, temperatureDisplay.TemperatureTextfield);
 
-        
         setWeatherData();
         humidityDisplay.Subscribe(weatherData);
         temperatureDisplay.Subscribe(weatherData);

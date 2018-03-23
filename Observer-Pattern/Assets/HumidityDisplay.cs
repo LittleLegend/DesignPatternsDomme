@@ -44,14 +44,14 @@ public class HumidityDisplay : MonoBehaviour, IObserver,IDisplay {
 
     public void display()
     {
-        loadingbarHumidityBehavior.displayLoading(humidity, maxHumid, minHumid, LoadingbarHumidity);
-        humidityTextBehavior.displayText(humidity.ToString() + "%", HumidityTextfield);
+       /* loadingbarHumidityBehavior.displayLoading(humidity, maxHumid, minHumid, LoadingbarHumidity);
+        humidityTextBehavior.displayText(humidity.ToString() + "%", HumidityTextfield);*/
     }
 
    
 
     public void Switch()
-    {
+    {/*
         if (active)
         {
             Unsubscribe(weatherData);
@@ -65,7 +65,12 @@ public class HumidityDisplay : MonoBehaviour, IObserver,IDisplay {
             humidityTextBehavior.deactiveText(HumidityTextfield);
         }
         active = !active;
+        */
+    }
 
+    public int getValue()
+    {
+        throw new NotImplementedException();
     }
 }
 

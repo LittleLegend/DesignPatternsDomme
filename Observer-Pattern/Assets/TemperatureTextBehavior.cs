@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class TemperatureTextBehavior:ITextBehavior{
+public class TemperatureTextBehavior{
 
-
+    /*
     public void activeText(TextMeshProUGUI Text)
     {
         
@@ -23,6 +23,6 @@ public class TemperatureTextBehavior:ITextBehavior{
         textbox.text = temperature;
         textbox.color = new Color32(0xD9, 0x58, 0x63, 0xFF);
     }
-
+    */
     
 }

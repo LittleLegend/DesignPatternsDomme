@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class TemperatureDisplay : MonoBehaviour,IObserver, IDisplay
+public class TemperatureDisplay: MonoBehaviour ,IObserver, IDisplay
 {
 
     public WeatherStationController weatherSation;
@@ -21,12 +21,13 @@ public class TemperatureDisplay : MonoBehaviour,IObserver, IDisplay
     public TextMeshProUGUI TemperatureTextfield;
     public bool active = true;
 
+    
     public void update(WeatherData weather) {
         weatherData= weather;
         temperature = weather.temperature;
         maxTemp = weather.maxTemp;
         minTemp = weather.minTemp;
-        display();
+        weatherSation.Display1.display();
     }
     
     
@@ -45,14 +46,10 @@ public class TemperatureDisplay : MonoBehaviour,IObserver, IDisplay
     }
 
    
-    public void display()
-    {
-        loadingbarTemperatureBehavior.displayLoading(temperature, maxTemp, minTemp, LoadingbarTemperatrue);
-        temperatureTextBehavior.displayText(temperature.ToString() + "C°", TemperatureTextfield);
-    }
+   
 
     public void Switch()
-    {
+    {/*
         if (active)
         {
             Unsubscribe(weatherData);
@@ -66,5 +63,16 @@ public class TemperatureDisplay : MonoBehaviour,IObserver, IDisplay
             temperatureTextBehavior.deactiveText(TemperatureTextfield);
         }
         active = !active;
+        */
+    }
+
+    public int getValue()
+    {
+        return temperature;
+    }
+
+    public void display()
+    {
+        Debug.Log(getValue());
     }
 }
