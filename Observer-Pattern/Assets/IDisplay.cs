@@ -7,7 +7,11 @@ public interface IDisplay {
 
 
     void display();
-     int getValue();
+    int getValue();
+    int getMaxValue();
+    int getMinValue();
+    bool getActive();
+    
 
 
 }

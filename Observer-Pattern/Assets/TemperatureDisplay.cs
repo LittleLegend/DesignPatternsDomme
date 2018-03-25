@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class TemperatureDisplay: MonoBehaviour ,IObserver, IDisplay
+public class TemperatureDisplay : ConcreteDisplay, IObserver
 {
 
     public WeatherStationController weatherSation;
@@ -15,12 +15,8 @@ public class TemperatureDisplay: MonoBehaviour ,IObserver, IDisplay
     public int maxTemp;
     public int minTemp;
     public Image Outline;
-    public Image Loadingbar;
-    public LoadingbarTemperatureBehavior loadingbarTemperatureBehavior = new LoadingbarTemperatureBehavior();
-    public TemperatureTextBehavior temperatureTextBehavior = new TemperatureTextBehavior();
+    public Image Bar;
     public TextMeshProUGUI TemperatureTextfield;
-    public bool active = true;
-
     
     public void update(WeatherData weather) {
         weatherData= weather;
@@ -28,6 +24,7 @@ public class TemperatureDisplay: MonoBehaviour ,IObserver, IDisplay
         maxTemp = weather.maxTemp;
         minTemp = weather.minTemp;
         weatherSation.Display1.display();
+        
     }
     
     
@@ -44,35 +41,36 @@ public class TemperatureDisplay: MonoBehaviour ,IObserver, IDisplay
         weather.weatherChanged();
 
     }
-
-   
-   
-
-    public void Switch()
-    {/*
-        if (active)
-        {
-            Unsubscribe(weatherData);
-            loadingbarTemperatureBehavior.activeLoading(Loadingbar, Outline);
-            temperatureTextBehavior.activeText(TemperatureTextfield);
-        }
-        else
-        {
-            Subscribe(weatherData);
-            loadingbarTemperatureBehavior.deactiveLoading(Loadingbar, Outline);
-            temperatureTextBehavior.deactiveText(TemperatureTextfield);
-        }
-        active = !active;
-        */
+    public override int getMaxValue()
+    {
+        return maxTemp;
+        
     }
 
-    public int getValue()
+    public override int getMinValue()
+    {
+        return minTemp;
+    }
+
+    public override int getValue()
     {
         return temperature;
+        
     }
 
-    public void display()
+    public override void switchActive()
     {
-        Debug.Log(getValue());
+        if(active)
+        {
+            Unsubscribe(weatherData);
+        }else
+        {
+            Subscribe(weatherData);
+        }
+        
+        active = !active;
+        weatherSation.Display1.display();
+
+
     }
 }

@@ -5,7 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class HumidityDisplay : MonoBehaviour, IObserver,IDisplay {
+public class HumidityDisplay : ConcreteDisplay, IObserver, IDisplay
+{
 
     public WeatherStationController weatherSation;
     public WeatherData weatherData;
@@ -14,19 +15,16 @@ public class HumidityDisplay : MonoBehaviour, IObserver,IDisplay {
     public int maxHumid;
     public int minHumid;
     public Image Outline;
-    public Image Loadingbar;
-    public LoadingbarHumidityBehavior loadingbarHumidityBehavior = new LoadingbarHumidityBehavior();
-    public HumidityTextBehavior humidityTextBehavior = new HumidityTextBehavior();
+    public Image Bar;
     public TextMeshProUGUI HumidityTextfield;
-    public bool active=true;
-
+   
     public void update(WeatherData weather)
     {
         weatherData = weather;
         humidity = weather.humidity;
         maxHumid = weather.maxHumid;
         minHumid = weather.minHumid;
-        display();
+        weatherSation.Display2.display();
 
     }
 
@@ -41,36 +39,40 @@ public class HumidityDisplay : MonoBehaviour, IObserver,IDisplay {
         weather.removeObserver(this, weather.Displays);
         weather.weatherChanged();
     }
+    
 
-    public void display()
+    public override int getMaxValue()
     {
-       /* loadingbarHumidityBehavior.displayLoading(humidity, maxHumid, minHumid, LoadingbarHumidity);
-        humidityTextBehavior.displayText(humidity.ToString() + "%", HumidityTextfield);*/
+        return maxHumid;
     }
 
-   
+    public override int getMinValue()
+    {
+        
+        return minHumid;
+    }
 
-    public void Switch()
-    {/*
+    public override int getValue()
+    {
+        
+        return humidity;
+    }
+
+    public override void switchActive()
+    {
         if (active)
         {
             Unsubscribe(weatherData);
-            loadingbarHumidityBehavior.activeLoading(Loadingbar, Outline);
-            humidityTextBehavior.activeText(HumidityTextfield);
         }
         else
         {
             Subscribe(weatherData);
-            loadingbarHumidityBehavior.deactiveLoading(Loadingbar, Outline);
-            humidityTextBehavior.deactiveText(HumidityTextfield);
         }
-        active = !active;
-        */
-    }
 
-    public int getValue()
-    {
-        throw new NotImplementedException();
+        active = !active;
+        weatherSation.Display2.display();
+
     }
+    
 }
 
