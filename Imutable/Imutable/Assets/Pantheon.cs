@@ -9,6 +9,7 @@ public class Pantheon : MonoBehaviour {
     public List<God> GodList;
     public GameState CurrentGameState;
     public God NewGod;
+    
 
 	void Start () {
 
